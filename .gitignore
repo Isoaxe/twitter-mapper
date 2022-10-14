@@ -1,5 +1,4 @@
 out/
 workspace.xml
 *.class
-*.jar
 .DS_Store
