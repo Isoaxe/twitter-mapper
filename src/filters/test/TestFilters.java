@@ -1,6 +1,7 @@
 package filters.test;
 
 import filters.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twitter4j.*;
 
@@ -11,18 +12,24 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestFilters {
+    private Filter f1;
+
+    @BeforeEach
+    public void setUp() {
+        f1 = new BasicFilter("fred");
+    }
+
     @Test
     public void testBasic() {
-        Filter f = new BasicFilter("fred");
-        assertTrue(f.matches(makeStatus("Fred Flintstone")));
-        assertTrue(f.matches(makeStatus("fred Flintstone")));
-        assertFalse(f.matches(makeStatus("Red Skelton")));
-        assertFalse(f.matches(makeStatus("red Skelton")));
+        assertTrue(f1.matches(makeStatus("Fred Flintstone")));
+        assertTrue(f1.matches(makeStatus("fred Flintstone")));
+        assertFalse(f1.matches(makeStatus("Red Skelton")));
+        assertFalse(f1.matches(makeStatus("red Skelton")));
     }
 
     @Test
     public void testNot() {
-        Filter f = new NotFilter(new BasicFilter("fred"));
+        Filter f = new NotFilter(f1);
         assertFalse(f.matches(makeStatus("Fred Flintstone")));
         assertFalse(f.matches(makeStatus("fred Flintstone")));
         assertTrue(f.matches(makeStatus("Red Skelton")));
