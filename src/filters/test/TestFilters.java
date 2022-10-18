@@ -24,6 +24,7 @@ public class TestFilters {
     public void testBasic() {
         assertTrue(f1.matches(makeStatus("Fred Flintstone")));
         assertTrue(f1.matches(makeStatus("fred Flintstone")));
+        assertTrue(f1.matches(makeStatus("Freddie Flintstone")));
         assertFalse(f1.matches(makeStatus("Red Skelton")));
         assertFalse(f1.matches(makeStatus("red Skelton")));
     }
@@ -33,6 +34,7 @@ public class TestFilters {
         Filter f = new NotFilter(f1);
         assertFalse(f.matches(makeStatus("Fred Flintstone")));
         assertFalse(f.matches(makeStatus("fred Flintstone")));
+        assertFalse(f.matches(makeStatus("Freddie Flintstone")));
         assertTrue(f.matches(makeStatus("Red Skelton")));
         assertTrue(f.matches(makeStatus("red Skelton")));
     }
