@@ -6,7 +6,7 @@ import util.ImageCache;
 import java.util.*;
 
 
-public abstract class TwitterSource {
+public abstract class TwitterSource extends Observable {
     protected boolean doLogging = true;
     // The set of terms to look for in the stream of tweets
     protected Set<String> terms = new HashSet<>();
