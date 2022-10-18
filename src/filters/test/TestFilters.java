@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestFilters {
-    private Filter f1, f2;
+    private BasicFilter f1, f2;
 
     @BeforeEach
     public void setUp() {
