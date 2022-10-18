@@ -49,6 +49,17 @@ public class TestFilters {
         assertTrue(f.matches(makeStatus("Flints Fred")));
     }
 
+    @Test
+    public void testOr() {
+        Filter f = new OrFilter(f1, f2);
+        assertTrue(f.matches(makeStatus("fred Flintstone")));
+        assertTrue(f.matches(makeStatus("red flint")));
+        assertTrue(f.matches(makeStatus("red Flintstone")));
+        assertTrue(f.matches(makeStatus("fred lintstone")));
+        assertFalse(f.matches(makeStatus("red lintstone")));
+        assertTrue(f.matches(makeStatus("lintstone Freddie")));
+    }
+
     private Status makeStatus(String text) {
         return new Status() {
             @Override
