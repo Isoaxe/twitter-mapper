@@ -28,7 +28,7 @@ public class Application extends JFrame {
     private final ContentPanel contentPanel;
     // The provider of the tiles for the map, we use the Bing source
     private BingAerialTileSource bing;
-    // All of the active queries
+    // All the active queries
     private List<Query> queries = new ArrayList<>();
     // The source of tweets, a TwitterSource, either live or playback
     private TwitterSource twitterSource;
@@ -52,14 +52,14 @@ public class Application extends JFrame {
      */
     public void addQuery(Query query) {
         queries.add(query);
-        Set<String> allterms = getQueryTerms();
-        twitterSource.setFilterTerms(allterms);
+        Set<String> allTerms = getQueryTerms();
+        twitterSource.setFilterTerms(allTerms);
         contentPanel.addQuery(query);
         twitterSource.addObserver(query);
     }
 
     /**
-     * return a list of all terms mentioned in all queries. The live twitter source uses this
+     * return a list of all terms mentioned in all queries. The live Twitter source uses this
      * to request matching tweets from the Twitter API.
      * @return
      */
@@ -99,7 +99,7 @@ public class Application extends JFrame {
         map().setTileSource(bing);
 
         //NOTE This is so that the map eventually loads the tiles once Bing attribution is ready.
-        Coordinate coord = new Coordinate(0, 0);
+        Coordinate coOrd = new Coordinate(0, 0);
 
         Timer bingTimer = new Timer();
         TimerTask bingAttributionCheck = new TimerTask() {
@@ -107,7 +107,7 @@ public class Application extends JFrame {
             public void run() {
                 // This is the best method we've found to determine when the Bing data has been loaded.
                 // We use this to trigger zooming the map so that the entire world is visible.
-                if (!bing.getAttributionText(0, coord, coord).equals("Error loading Bing attribution data")) {
+                if (!bing.getAttributionText(0, coOrd, coOrd).equals("Error loading Bing attribution data")) {
                     map().setZoom(2);
                     bingTimer.cancel();
                 }
@@ -190,7 +190,7 @@ public class Application extends JFrame {
     public void terminateQuery(Query query) {
         // TODO: This is the place where you should disconnect the expiring query from the twitter source
         queries.remove(query);
-        Set<String> allterms = getQueryTerms();
-        twitterSource.setFilterTerms(allterms);
+        Set<String> allTerms = getQueryTerms();
+        twitterSource.setFilterTerms(allTerms);
     }
 }
