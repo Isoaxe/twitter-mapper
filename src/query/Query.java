@@ -1,8 +1,12 @@
 package query;
 
 import filters.Filter;
+import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.Layer;
+import twitter4j.Status;
+import ui.MapMarkerSimple;
+import util.Util;
 
 import javax.swing.*;
 import java.awt.*;
@@ -74,7 +78,12 @@ public class Query implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        
+        Status tweet = (Status) arg;
+        if (filter.matches(tweet)) {
+            Coordinate location = Util.statusCoordinate(tweet);
+            MapMarkerSimple marker = new MapMarkerSimple(layer, location);
+            map.addMapMarker(marker);
+        }
     }
 }
 
