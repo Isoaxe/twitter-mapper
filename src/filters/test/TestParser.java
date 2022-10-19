@@ -31,5 +31,11 @@ public class TestParser {
         } catch (SyntaxError se) {
             // SyntaxError caught here as expected. Do nothing.
         }
+        try {
+            new Parser("trump and or purple").parse(); // Illegal combo. Use AND || OR, not both together.
+            fail("Prior assertion should have thrown a SyntaxError...");
+        } catch (SyntaxError se) {
+            // SyntaxError caught here as expected. Do nothing.
+        }
     }
 }
