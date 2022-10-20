@@ -90,7 +90,7 @@ public class Query implements Observer {
         Status tweet = (Status) arg;
         if (filter.matches(tweet)) {
             Coordinate location = Util.statusCoordinate(tweet);
-            MapMarkerSimple marker = new MapMarkerSimple(layer, location);
+            MapMarkerSimple marker = new MapMarkerSimple(layer, location, color);
             map.addMapMarker(marker);
         }
     }
