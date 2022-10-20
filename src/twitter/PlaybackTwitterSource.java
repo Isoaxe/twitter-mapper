@@ -69,7 +69,7 @@ public class PlaybackTwitterSource extends TwitterSource {
     }
 
     /**
-     * The playback source merely starts the playback thread, it it hasn't been started already
+     * The playback source merely starts the playback thread, if it hasn't been started already
      */
     protected void sync() {
         System.out.println("Starting playback thread with " + terms);

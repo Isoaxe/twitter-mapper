@@ -1,17 +1,25 @@
 package query;
 
 import filters.Filter;
+import org.openstreetmap.gui.jmapviewer.Coordinate;
 import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.Layer;
+import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
+import twitter4j.Status;
+import ui.MapMarkerSimple;
+import util.Util;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * A query over the twitter stream.
- * TODO: Task 4: you are to complete this class.
  */
-public class Query {
+public class Query implements Observer {
     // The map on which to display markers when the query matches
     private final JMapViewer map;
     // Each query has its own "layer" so they can be turned on and off all at once
@@ -63,11 +71,28 @@ public class Query {
 
     /**
      * This query is no longer interesting, so terminate it and remove all traces of its existence.
-     *
-     * TODO: Implement this method
      */
     public void terminate() {
+        List<MapMarker> allMarkers = map.getMapMarkerList();
+        List<MapMarker> terminatedMarkers = new ArrayList<>();
+        for (MapMarker marker: allMarkers) {
+            if (marker.getLayer() == layer) {
+                terminatedMarkers.add(marker);
+            }
+        }
+        for (MapMarker marker: terminatedMarkers) {
+            map.removeMapMarker(marker);
+        }
+    }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        Status tweet = (Status) arg;
+        if (filter.matches(tweet)) {
+            Coordinate location = Util.statusCoordinate(tweet);
+            MapMarkerSimple marker = new MapMarkerSimple(layer, location);
+            map.addMapMarker(marker);
+        }
     }
 }
 

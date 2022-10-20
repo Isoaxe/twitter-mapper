@@ -1,6 +1,7 @@
 package filters.test;
 
 import filters.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import twitter4j.*;
 
@@ -11,22 +12,52 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class TestFilters {
+    private BasicFilter f1, f2;
+
+    @BeforeEach
+    public void setUp() {
+        f1 = new BasicFilter("fred");
+        f2 = new BasicFilter("flint");
+    }
+
     @Test
     public void testBasic() {
-        Filter f = new BasicFilter("fred");
-        assertTrue(f.matches(makeStatus("Fred Flintstone")));
-        assertTrue(f.matches(makeStatus("fred Flintstone")));
-        assertFalse(f.matches(makeStatus("Red Skelton")));
-        assertFalse(f.matches(makeStatus("red Skelton")));
+        assertTrue(f1.matches(makeStatus("Fred Flintstone")));
+        assertTrue(f1.matches(makeStatus("fred Flintstone")));
+        assertTrue(f1.matches(makeStatus("Freddie Flintstone")));
+        assertFalse(f1.matches(makeStatus("Red Skelton")));
+        assertFalse(f1.matches(makeStatus("red Skelton")));
     }
 
     @Test
     public void testNot() {
-        Filter f = new NotFilter(new BasicFilter("fred"));
+        Filter f = new NotFilter(f1);
         assertFalse(f.matches(makeStatus("Fred Flintstone")));
         assertFalse(f.matches(makeStatus("fred Flintstone")));
+        assertFalse(f.matches(makeStatus("Freddie Flintstone")));
         assertTrue(f.matches(makeStatus("Red Skelton")));
         assertTrue(f.matches(makeStatus("red Skelton")));
+    }
+
+    @Test
+    public void testAnd() {
+        Filter f = new AndFilter(f1, f2);
+        assertTrue(f.matches(makeStatus("Fred Flint")));
+        assertTrue(f.matches(makeStatus("fred Flintstone")));
+        assertFalse(f.matches(makeStatus("red Flintstone")));
+        assertFalse(f.matches(makeStatus("fred lintstone")));
+        assertTrue(f.matches(makeStatus("Flints Fred")));
+    }
+
+    @Test
+    public void testOr() {
+        Filter f = new OrFilter(f1, f2);
+        assertTrue(f.matches(makeStatus("fred Flintstone")));
+        assertTrue(f.matches(makeStatus("red flint")));
+        assertTrue(f.matches(makeStatus("red Flintstone")));
+        assertTrue(f.matches(makeStatus("fred lintstone")));
+        assertFalse(f.matches(makeStatus("red lintstone")));
+        assertTrue(f.matches(makeStatus("lintstone Freddie")));
     }
 
     private Status makeStatus(String text) {

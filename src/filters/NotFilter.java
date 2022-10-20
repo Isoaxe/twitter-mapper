@@ -5,7 +5,7 @@ import twitter4j.Status;
 import java.util.List;
 
 /**
- * A filter that represents the logical not of its child filter
+ * A filter that represents the logical NOT of its child filter
  */
 public class NotFilter implements Filter {
     private final Filter child;
@@ -15,7 +15,7 @@ public class NotFilter implements Filter {
     }
 
     /**
-     * A not filter matches when its child doesn't, and vice versa
+     * A NOT filter matches when its child doesn't, and vice versa
      * @param s     the tweet to check
      * @return      whether or not it matches
      */
