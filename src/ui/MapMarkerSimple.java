@@ -8,11 +8,10 @@ import java.awt.*;
 
 public class MapMarkerSimple extends MapMarkerCircle {
     public static final double defaultMarkerSize = 5.0;
-    public static final Color defaultColor = Color.red;
 
-    public MapMarkerSimple(Layer layer, Coordinate coord) {
+    public MapMarkerSimple(Layer layer, Coordinate coord, Color color) {
         super(layer, null, coord, defaultMarkerSize, STYLE.FIXED, getDefaultStyle());
         setColor(Color.BLACK);
-        setBackColor(defaultColor);
+        setBackColor(color);
     }
 }
