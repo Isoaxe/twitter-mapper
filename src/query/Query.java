@@ -11,6 +11,7 @@ import util.Util;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -90,7 +91,9 @@ public class Query implements Observer {
         Status tweet = (Status) arg;
         if (filter.matches(tweet)) {
             Coordinate location = Util.statusCoordinate(tweet);
-            MapMarkerComplex marker = new MapMarkerComplex(layer, location, color);
+            String miniProfilePicUrl = tweet.getUser().getMiniProfileImageURL();
+            BufferedImage miniProfilePic = Util.imageFromURL(miniProfilePicUrl);
+            MapMarkerComplex marker = new MapMarkerComplex(layer, location, color, miniProfilePic);
             map.addMapMarker(marker);
         }
     }
