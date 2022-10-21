@@ -27,8 +27,8 @@ public class MapMarkerComplex extends MapMarkerCircle {
         return text;
     }
 
-    public Image getProfilePic() {
-        return profilePic;
+    public String getProfilePicUrl() {
+        return profilePicUrl;
     }
 
     @Override
