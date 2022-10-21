@@ -93,7 +93,7 @@ public class Query implements Observer {
             String profilePicUrl = tweet.getUser().getProfileImageURL();
             Image profilePic = Util.imageFromURL(profilePicUrl);
             String text = tweet.getText();
-            MapMarkerComplex marker = new MapMarkerComplex(layer, location, color, profilePic, text);
+            MapMarkerComplex marker = new MapMarkerComplex(layer, location, color, profilePic, text, profilePicUrl);
             map.addMapMarker(marker);
         }
     }
