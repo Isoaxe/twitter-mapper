@@ -11,12 +11,14 @@ public class MapMarkerComplex extends MapMarkerCircle {
     public static final double markerRadius = 13.0;
     private Image profilePic;
     private Color color;
+    private String text;
     private static final int profilePicSide = 20;
 
-    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, Image profilePic) {
+    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, Image profilePic, String text) {
         super(layer, null, coOrd, markerRadius, STYLE.FIXED, getDefaultStyle());
         this.profilePic = profilePic;
         this.color = color;
+        this.text = text;
     }
 
     @Override
