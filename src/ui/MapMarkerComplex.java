@@ -25,6 +25,10 @@ public class MapMarkerComplex extends MapMarkerCircle {
         return text;
     }
 
+    public Image getProfilePic() {
+        return profilePic;
+    }
+
     @Override
     public void paint(Graphics g, Point position, int radius) {
         int profilePicX = position.x - profilePicSide / 2;
