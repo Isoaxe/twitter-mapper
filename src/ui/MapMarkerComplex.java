@@ -32,6 +32,6 @@ public class MapMarkerComplex extends MapMarkerCircle {
         g.setColor(color);
         g.fillOval(markerX, markerY, markerDiameterInt, markerDiameterInt);
 
-        g.drawImage(miniProfilePic, profilePicX, profilePicY, 20, 20, null);
+        g.drawImage(miniProfilePic, profilePicX, profilePicY, profilePicSide, profilePicSide, null);
     }
 }
