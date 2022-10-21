@@ -125,7 +125,8 @@ public class Application extends JFrame {
                 List<MapMarker> markersCovering = getMarkersCovering(pos, pw);
                 for (MapMarker marker: markersCovering) {
                     MapMarkerComplex mmc = (MapMarkerComplex) marker;
-                    map().setToolTipText(mmc.getText());
+                    // Embed HTML for tooltip image and text.
+                    map().setToolTipText("<html><img src=" + mmc.getProfilePicUrl() + "><p>" + mmc.getText() + "</p></html>");
                 }
             }
         });
