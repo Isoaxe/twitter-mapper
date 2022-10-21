@@ -9,13 +9,13 @@ import java.awt.geom.Ellipse2D;
 
 public class MapMarkerComplex extends MapMarkerCircle {
     public static final double markerRadius = 13.0;
-    private Image miniProfilePic;
+    private Image profilePic;
     private Color color;
     private static final int profilePicSide = 20;
 
-    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, Image miniProfilePic) {
+    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, Image profilePic) {
         super(layer, null, coOrd, markerRadius, STYLE.FIXED, getDefaultStyle());
-        this.miniProfilePic = miniProfilePic;
+        this.profilePic = profilePic;
         this.color = color;
     }
 
@@ -32,6 +32,6 @@ public class MapMarkerComplex extends MapMarkerCircle {
         g.setColor(color);
         g.fillOval(markerX, markerY, markerDiameterInt, markerDiameterInt);
 
-        g.drawImage(miniProfilePic, profilePicX, profilePicY, profilePicSide, profilePicSide, null);
+        g.drawImage(profilePic, profilePicX, profilePicY, profilePicSide, profilePicSide, null);
     }
 }
