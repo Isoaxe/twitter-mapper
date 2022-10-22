@@ -7,6 +7,8 @@ import org.openstreetmap.gui.jmapviewer.MapMarkerCircle;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
+import static util.Util.imageFromURL;
+
 public class MapMarkerComplex extends MapMarkerCircle {
     public static final double markerRadius = 13.0;
     private Image profilePic;
@@ -15,9 +17,9 @@ public class MapMarkerComplex extends MapMarkerCircle {
     private String profilePicUrl;
     private static final int profilePicSide = 20;
 
-    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, Image profilePic, String text, String profilePicUrl) {
+    public MapMarkerComplex(Layer layer, Coordinate coOrd, Color color, String text, String profilePicUrl) {
         super(layer, null, coOrd, markerRadius, STYLE.FIXED, getDefaultStyle());
-        this.profilePic = profilePic;
+        this.profilePic = imageFromURL(profilePicUrl);
         this.color = color;
         this.text = text;
         this.profilePicUrl = profilePicUrl;
