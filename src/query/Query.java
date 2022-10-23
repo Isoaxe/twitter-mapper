@@ -6,7 +6,7 @@ import org.openstreetmap.gui.jmapviewer.JMapViewer;
 import org.openstreetmap.gui.jmapviewer.Layer;
 import org.openstreetmap.gui.jmapviewer.interfaces.MapMarker;
 import twitter4j.Status;
-import ui.MapMarkerSimple;
+import ui.MapMarkerComplex;
 import util.Util;
 
 import javax.swing.*;
@@ -90,7 +90,9 @@ public class Query implements Observer {
         Status tweet = (Status) arg;
         if (filter.matches(tweet)) {
             Coordinate location = Util.statusCoordinate(tweet);
-            MapMarkerSimple marker = new MapMarkerSimple(layer, location);
+            String profilePicUrl = tweet.getUser().getProfileImageURL();
+            String text = tweet.getText();
+            MapMarkerComplex marker = new MapMarkerComplex(layer, location, color, text, profilePicUrl);
             map.addMapMarker(marker);
         }
     }

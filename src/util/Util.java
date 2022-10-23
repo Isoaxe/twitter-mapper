@@ -33,7 +33,7 @@ public class Util {
         return new Coordinate(newLat, newLon);
     }
 
-    public static BufferedImage defaultImage = imageFromURL("http://png-2.findicons.com/files/icons/1995/web_application/48/smiley.png");
+    public static BufferedImage defaultImage = imageFromURL("https://i.ibb.co/7tT3DXT/Soft-Const2x-avatar.png");
     public static BufferedImage imageFromURL(String url) {
         try {
             BufferedImage img = ImageIO.read(new URL(url));
