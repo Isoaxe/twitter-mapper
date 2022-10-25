@@ -16,6 +16,6 @@ Search for tweets based on keywords and see the results displayed on a world map
 
 ### Coursework
 
-This is the final project from the [Software Construction: Object-Oriented Design](https://www.edx.org/course/software-construction-object-oriented-design) course from [UBC](https://www.ubc.ca/). The course is the fourth of six that form the [Software Development Micromasters](https://www.edx.org/micromasters/ubcx-software-development) Program on edX.
+This is the final project from the [Software Construction: Object-Oriented Design](https://www.edx.org/course/software-construction-object-oriented-design) course from [UBC](https://www.ubc.ca/). The course is the fourth of six that form the [Software Development MicroMasters](https://www.edx.org/micromasters/ubcx-software-development) Program on edX.
 
 ![Twitter Mapper](./data/twitter_mapper.png?raw=true)
