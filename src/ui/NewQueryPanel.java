@@ -83,6 +83,11 @@ public class NewQueryPanel extends JPanel {
         // This makes the "Enter" key submit the query.
         app.getRootPane().setDefaultButton(addQueryButton);
 
+        initColorListener();
+    }
+
+    // Open palette when button is clicked to set query color.
+    private void initColorListener() {
         colorSetter.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
