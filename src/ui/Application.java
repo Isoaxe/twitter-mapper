@@ -79,8 +79,6 @@ public class Application extends JFrame {
         setSize(300, 300);
         initialize();
 
-        bing = new BingAerialTileSource();
-
         initializeUi();
 
         // Always have map markers showing.
@@ -90,25 +88,7 @@ public class Application extends JFrame {
         map().setZoomContolsVisible(true);
         map().setScrollWrapEnabled(true);
 
-        // Use the Bing tile provider
-        map().setTileSource(bing);
-
-        //NOTE This is so that the map eventually loads the tiles once Bing attribution is ready.
-        Coordinate coOrd = new Coordinate(0, 0);
-
-        Timer bingTimer = new Timer();
-        TimerTask bingAttributionCheck = new TimerTask() {
-            @Override
-            public void run() {
-                // This is the best method we've found to determine when the Bing data has been loaded.
-                // We use this to trigger zooming the map so that the entire world is visible.
-                if (!bing.getAttributionText(0, coOrd, coOrd).equals("Error loading Bing attribution data")) {
-                    map().setZoom(2);
-                    bingTimer.cancel();
-                }
-            }
-        };
-        bingTimer.schedule(bingAttributionCheck, 100, 200);
+        loadBingData();
 
         // Set up a motion listener to create a tooltip showing the tweets at the pointer position
         map().addMouseMotionListener(new MouseAdapter() {
@@ -125,6 +105,29 @@ public class Application extends JFrame {
                 }
             }
         });
+    }
+
+    private void loadBingData() {
+        bing = new BingAerialTileSource();
+
+        // Use the Bing tile provider.
+        map().setTileSource(bing);
+
+        // NOTE: This is so that the map eventually loads the tiles once Bing attribution is ready.
+        Coordinate coOrd = new Coordinate(0, 0);
+        Timer bingTimer = new Timer();
+        TimerTask bingAttributionCheck = new TimerTask() {
+            @Override
+            public void run() {
+                // This is the best method we've found to determine when the Bing data has been loaded.
+                // We use this to trigger zooming the map so that the entire world is visible.
+                if (!bing.getAttributionText(0, coOrd, coOrd).equals("Error loading Bing attribution data")) {
+                    map().setZoom(2);
+                    bingTimer.cancel();
+                }
+            }
+        };
+        bingTimer.schedule(bingAttributionCheck, 100, 200);
     }
 
     // Initialize the user interface. Helper for constructor.
