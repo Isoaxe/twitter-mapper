@@ -52,6 +52,12 @@ public class Application extends JFrame {
         add(contentPanel, BorderLayout.CENTER);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Initialize map settings.
+        // Always have map markers and zoom controls showing. Allow scrolling so there is no edge to map.
+        map().setMapMarkerVisible(true);
+        map().setZoomContolsVisible(true);
+        map().setScrollWrapEnabled(true);
     }
 
     /**
@@ -87,13 +93,6 @@ public class Application extends JFrame {
         setSize(300, 300);
 
         initialize();
-
-        // Always have map markers showing.
-        map().setMapMarkerVisible(true);
-        // Always have zoom controls showing,
-        // and allow scrolling of the map around the edge of the world.
-        map().setZoomContolsVisible(true);
-        map().setScrollWrapEnabled(true);
 
         loadBingData();
 
