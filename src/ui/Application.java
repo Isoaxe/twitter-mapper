@@ -25,7 +25,7 @@ import java.util.Timer;
  */
 public class Application extends JFrame {
     // The content panel, which contains the entire UI
-    private final ContentPanel contentPanel;
+    private ContentPanel contentPanel;
     // The provider of the tiles for the map, we use the Bing source
     private BingAerialTileSource bing;
     // All the active queries
@@ -81,12 +81,7 @@ public class Application extends JFrame {
 
         bing = new BingAerialTileSource();
 
-        // Do UI initialization
-        contentPanel = new ContentPanel(this);
-        setLayout(new BorderLayout());
-        add(contentPanel, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        initializeUi();
 
         // Always have map markers showing.
         map().setMapMarkerVisible(true);
@@ -130,6 +125,15 @@ public class Application extends JFrame {
                 }
             }
         });
+    }
+
+    // Initialize the user interface. Helper for constructor.
+    private void initializeUi() {
+        contentPanel = new ContentPanel(this);
+        setLayout(new BorderLayout());
+        add(contentPanel, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     // How big is a single pixel on the map?  We use this to compute which tweet markers
