@@ -57,7 +57,7 @@ public class Parser {
         Filter sub = andExpr();
         String token = scanner.nextToken();
         while (token != null && token.equals(OR)) {
-            scanner.advance();
+            scanner.advanceAndNextToken();
             Filter right = andExpr();
             // At this point we have two subexpressions ("sub" on the left and "right" on the right)
             // that are to be connected by "or"
@@ -72,7 +72,7 @@ public class Parser {
         Filter sub = notExpr();
         String token = scanner.nextToken();
         while (token != null && token.equals(AND)) {
-            scanner.advance();
+            scanner.advanceAndNextToken();
             Filter right = notExpr();
             // At this point we have two subexpressions ("sub" on the left and "right" on the right)
             // that are to be connected by "and"
@@ -86,7 +86,7 @@ public class Parser {
     private Filter notExpr() throws SyntaxError {
         String token = scanner.nextToken();
         if (token.equals(NOT)) {
-            scanner.advance();
+            scanner.advanceAndNextToken();
             Filter sub = notExpr();
             return new NotFilter(sub);
         } else {
@@ -98,16 +98,16 @@ public class Parser {
     private Filter prim() throws SyntaxError {
         String token = scanner.nextToken();
         if (token.equals(LPAREN)) {
-            scanner.advance();
+            scanner.advanceAndNextToken();
             Filter sub = expr();
             if (!scanner.nextToken().equals(RPAREN)) {
                 throw new SyntaxError("Expected ')'");
             }
-            scanner.advance();
+            scanner.advanceAndNextToken();
             return sub;
         } else {
             Filter sub = new BasicFilter(token);
-            scanner.advance();
+            scanner.advanceAndNextToken();
             return sub;
         }
     }

@@ -40,7 +40,7 @@ public class Scanner {
      * Advance the input, consuming the current token, and return the first remaining token in the input.
      * @return      The first remaining token in the input after advancing, or null if no tokens remain
      */
-    public String advance() {
+    public String advanceAndNextToken() {
         tokens.remove(0);
         return tokens.size() > 0 ? tokens.get(0) : null;
     }

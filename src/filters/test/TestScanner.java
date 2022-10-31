@@ -11,18 +11,18 @@ public class TestScanner {
     public void testBasic() {
         Scanner x = new Scanner("trump");
         assertTrue(x.nextToken().equals("trump"));
-        assertTrue(x.advance() == null);
+        assertTrue(x.advanceAndNextToken() == null);
     }
 
     @Test
     public void testAnd() {
         Scanner x = new Scanner("trump and evil");
         assertTrue(x.nextToken().equals("trump"));
-        assertTrue(x.advance().equals("and"));
+        assertTrue(x.advanceAndNextToken().equals("and"));
         assertTrue(x.nextToken().equals("and"));
-        assertTrue(x.advance().equals("evil"));
+        assertTrue(x.advanceAndNextToken().equals("evil"));
         assertTrue(x.nextToken().equals("evil"));
-        assertTrue(x.advance() == null);
+        assertTrue(x.advanceAndNextToken() == null);
     }
 
     @Test
@@ -45,10 +45,10 @@ public class TestScanner {
             if (first) {
                 first = false;
             } else {
-                assertTrue(x.advance().equals(token));
+                assertTrue(x.advanceAndNextToken().equals(token));
             }
             assertTrue(x.nextToken().equals(token));
         }
-        assertTrue(x.advance() == null);
+        assertTrue(x.advanceAndNextToken() == null);
     }
 }
