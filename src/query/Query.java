@@ -32,6 +32,8 @@ public class Query implements Observer {
     private final Filter filter;
     // The checkBox in the UI corresponding to this query (so we can turn it on and off and delete it)
     private JCheckBox checkBox;
+    // A list of all the MapMarkers for this query
+    private List<MapMarker> markers;
 
     public Color getColor() {
         return color;
@@ -62,6 +64,7 @@ public class Query implements Observer {
         this.color = color;
         this.layer = new Layer(queryString);
         this.map = map;
+        this.markers = new ArrayList<>();
     }
 
     @Override
@@ -73,14 +76,7 @@ public class Query implements Observer {
      * This query is no longer interesting, so terminate it and remove all traces of its existence.
      */
     public void terminate() {
-        List<MapMarker> allMarkers = map.getMapMarkerList();
-        List<MapMarker> terminatedMarkers = new ArrayList<>();
-        for (MapMarker marker: allMarkers) {
-            if (marker.getLayer() == layer) {
-                terminatedMarkers.add(marker);
-            }
-        }
-        for (MapMarker marker: terminatedMarkers) {
+        for (MapMarker marker: markers) {
             map.removeMapMarker(marker);
         }
     }
@@ -94,6 +90,7 @@ public class Query implements Observer {
             String text = tweet.getText();
             MapMarkerComplex marker = new MapMarkerComplex(layer, location, color, text, profilePicUrl);
             map.addMapMarker(marker);
+            markers.add(marker);
         }
     }
 }
