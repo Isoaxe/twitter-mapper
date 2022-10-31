@@ -35,6 +35,7 @@ public class Query implements Observer {
     // A list of all the MapMarkers for this query
     private List<MapMarker> markers;
 
+    // getters
     public Color getColor() {
         return color;
     }
@@ -50,13 +51,15 @@ public class Query implements Observer {
     public JCheckBox getCheckBox() {
         return checkBox;
     }
+    public boolean getVisible() { return layer.isVisible(); }
+
+    // setters
     public void setCheckBox(JCheckBox checkBox) {
         this.checkBox = checkBox;
     }
     public void setVisible(boolean visible) {
         layer.setVisible(visible);
     }
-    public boolean getVisible() { return layer.isVisible(); }
 
     public Query(String queryString, Color color, JMapViewer map) {
         this.queryString = queryString;
