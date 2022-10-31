@@ -96,7 +96,11 @@ public class Application extends JFrame {
 
         loadBingData();
 
-        // Set up a motion listener to create a tooltip showing the tweets at the pointer position
+        createTooltip();
+    }
+
+    // Set up a motion listener to create a tooltip showing the tweets at the pointer position.
+    private void createTooltip() {
         map().addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
