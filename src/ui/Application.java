@@ -33,6 +33,7 @@ public class Application extends JFrame {
     // The source of tweets, a TwitterSource, either live or playback
     private TwitterSource twitterSource;
 
+    // Initialize twitter data, the UI and map settings.
     private void initialize() {
         // To use the live twitter stream, use the following line
         // twitterSource = new LiveTwitterSource();
@@ -44,6 +45,13 @@ public class Application extends JFrame {
         twitterSource = new PlaybackTwitterSource(60.0);
 
         queries = new ArrayList<>();
+
+        // Initialize the user interface.
+        contentPanel = new ContentPanel(this);
+        setLayout(new BorderLayout());
+        add(contentPanel, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     /**
@@ -77,9 +85,8 @@ public class Application extends JFrame {
     public Application() {
         super("Twitter content viewer");
         setSize(300, 300);
-        initialize();
 
-        initializeUi();
+        initialize();
 
         // Always have map markers showing.
         map().setMapMarkerVisible(true);
@@ -128,15 +135,6 @@ public class Application extends JFrame {
             }
         };
         bingTimer.schedule(bingAttributionCheck, 100, 200);
-    }
-
-    // Initialize the user interface. Helper for constructor.
-    private void initializeUi() {
-        contentPanel = new ContentPanel(this);
-        setLayout(new BorderLayout());
-        add(contentPanel, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     // How big is a single pixel on the map?  We use this to compute which tweet markers
