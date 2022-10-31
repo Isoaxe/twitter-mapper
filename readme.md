@@ -4,6 +4,12 @@ Search for tweets based on keywords and see the results displayed on a world map
 
 ### Usage
 
+The app currently works using playback data. To use live data, it would have to be reconfigured to use the Twitter api v2 as v1.1 has been [retired completely](https://twittercommunity.com/t/deprecation-announcement-removing-compliance-messages-from-statuses-filter-and-retiring-statuses-sample-from-the-twitter-api-v1-1/170500) as of 31st October 2022. This is outside the scope of this course and has not been done.
+
+#### Using Playback Data
+
+This sets up the project to play back a cached Twitter feed. It is therefore not required to connect to the Twitter api as live data isn't being used.
+
 1. To get going, first fork this repository.
 2. Then download [IntelliJ Idea](https://www.jetbrains.com/idea/) or similar IDE for running the program.
 3. After installation, click the `open` button from the IntelliJ window and select the project directory.
