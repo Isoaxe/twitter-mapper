@@ -29,10 +29,10 @@ public class Scanner {
 
     /**
      * Return the first token remaining, without changing anything.
-     * A second call to peek without an intervening call to advance, will return this same token again.
+     * A second call to nextToken without an intervening call to advance, will return this same token again.
      * @return      The first remaining token in the input, or null if no tokens remain
      */
-    public String peek() {
+    public String nextToken() {
         return tokens.size() > 0 ? tokens.get(0) : null;
     }
 
