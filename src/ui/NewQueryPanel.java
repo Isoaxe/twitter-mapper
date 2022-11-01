@@ -36,7 +36,7 @@ public class NewQueryPanel extends JPanel {
         c.gridx = 0;
         add(queryLabel, c);
         c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        c.fill = GridBagConstraints.BOTH;
         newQuery.setMaximumSize(new Dimension(200, 20));
         c.gridx = 1;
         add(newQuery, c);
