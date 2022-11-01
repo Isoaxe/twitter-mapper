@@ -25,7 +25,7 @@ import java.util.Timer;
  */
 public class Application extends JFrame {
     // The content panel, which contains the entire UI
-    private final ContentPanel contentPanel;
+    private ContentPanel contentPanel;
     // The provider of the tiles for the map, we use the Bing source
     private BingAerialTileSource bing;
     // All the active queries
@@ -33,6 +33,7 @@ public class Application extends JFrame {
     // The source of tweets, a TwitterSource, either live or playback
     private TwitterSource twitterSource;
 
+    // Initialize twitter data, the UI and map settings.
     private void initialize() {
         // To use the live twitter stream, use the following line
         // twitterSource = new LiveTwitterSource();
@@ -44,6 +45,19 @@ public class Application extends JFrame {
         twitterSource = new PlaybackTwitterSource(60.0);
 
         queries = new ArrayList<>();
+
+        // Initialize the user interface.
+        contentPanel = new ContentPanel(this);
+        setLayout(new BorderLayout());
+        add(contentPanel, BorderLayout.CENTER);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+        // Initialize map settings.
+        // Always have map markers and zoom controls showing. Allow scrolling so there is no edge to map.
+        map().setMapMarkerVisible(true);
+        map().setZoomContolsVisible(true);
+        map().setScrollWrapEnabled(true);
     }
 
     /**
@@ -77,45 +91,16 @@ public class Application extends JFrame {
     public Application() {
         super("Twitter content viewer");
         setSize(300, 300);
+
         initialize();
 
-        bing = new BingAerialTileSource();
+        loadBingData();
 
-        // Do UI initialization
-        contentPanel = new ContentPanel(this);
-        setLayout(new BorderLayout());
-        add(contentPanel, BorderLayout.CENTER);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        createTooltip();
+    }
 
-        // Always have map markers showing.
-        map().setMapMarkerVisible(true);
-        // Always have zoom controls showing,
-        // and allow scrolling of the map around the edge of the world.
-        map().setZoomContolsVisible(true);
-        map().setScrollWrapEnabled(true);
-
-        // Use the Bing tile provider
-        map().setTileSource(bing);
-
-        //NOTE This is so that the map eventually loads the tiles once Bing attribution is ready.
-        Coordinate coOrd = new Coordinate(0, 0);
-
-        Timer bingTimer = new Timer();
-        TimerTask bingAttributionCheck = new TimerTask() {
-            @Override
-            public void run() {
-                // This is the best method we've found to determine when the Bing data has been loaded.
-                // We use this to trigger zooming the map so that the entire world is visible.
-                if (!bing.getAttributionText(0, coOrd, coOrd).equals("Error loading Bing attribution data")) {
-                    map().setZoom(2);
-                    bingTimer.cancel();
-                }
-            }
-        };
-        bingTimer.schedule(bingAttributionCheck, 100, 200);
-
-        // Set up a motion listener to create a tooltip showing the tweets at the pointer position
+    // Set up a motion listener to create a tooltip showing the tweets at the pointer position.
+    private void createTooltip() {
         map().addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
@@ -130,6 +115,29 @@ public class Application extends JFrame {
                 }
             }
         });
+    }
+
+    private void loadBingData() {
+        bing = new BingAerialTileSource();
+
+        // Use the Bing tile provider.
+        map().setTileSource(bing);
+
+        // NOTE: This is so that the map eventually loads the tiles once Bing attribution is ready.
+        Coordinate coOrd = new Coordinate(0, 0);
+        Timer bingTimer = new Timer();
+        TimerTask bingAttributionCheck = new TimerTask() {
+            @Override
+            public void run() {
+                // This is the best method we've found to determine when the Bing data has been loaded.
+                // We use this to trigger zooming the map so that the entire world is visible.
+                if (!bing.getAttributionText(0, coOrd, coOrd).equals("Error loading Bing attribution data")) {
+                    map().setZoom(2);
+                    bingTimer.cancel();
+                }
+            }
+        };
+        bingTimer.schedule(bingAttributionCheck, 100, 200);
     }
 
     // How big is a single pixel on the map?  We use this to compute which tweet markers

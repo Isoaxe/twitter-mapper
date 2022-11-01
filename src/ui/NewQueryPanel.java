@@ -15,10 +15,9 @@ import java.util.Random;
  */
 public class NewQueryPanel extends JPanel {
     private final JTextField newQuery = new JTextField(10);
-    private final JLabel queryLabel = new JLabel("Enter Search: ");
     private final JPanel colorSetter;
     private final Application app;
-    private Random random;
+    private final Random random;
 
     public NewQueryPanel(Application app) {
         this.app = app;
@@ -28,61 +27,70 @@ public class NewQueryPanel extends JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        queryLabel.setLabelFor(newQuery);
         GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.RELATIVE;
-        c.fill = GridBagConstraints.NONE;
-        c.gridy = 0;
-        c.gridx = 0;
-        add(queryLabel, c);
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.HORIZONTAL;
+
+        // Create search label and field.
+        JLabel queryLabel = new JLabel("Enter Search: ");
+        queryLabel.setLabelFor(newQuery);
+        labelLayout(c, 0, queryLabel);
         newQuery.setMaximumSize(new Dimension(200, 20));
-        c.gridx = 1;
         add(newQuery, c);
 
-        add(Box.createRigidArea(new Dimension(5, 5)));
+        addDivider();
 
+        // Create color label and field.
         JLabel colorLabel = new JLabel("Select Color: ");
         colorSetter.setBackground(getRandomColor());
-
-        c.gridwidth = GridBagConstraints.RELATIVE;
-        c.fill = GridBagConstraints.NONE;
-        c.gridy = 1;
-        c.gridx = 0;
-        add(colorLabel, c);
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
+        labelLayout(c, 1, colorLabel);
         colorSetter.setMaximumSize(new Dimension(200, 20));
         add(colorSetter, c);
 
-        add(Box.createRigidArea(new Dimension(5, 5)));
+        addDivider();
 
-        JButton addQueryButton = new JButton("Add New Search");
-        c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
-        c.gridwidth = 2;   //2 columns wide
-        c.gridy = GridBagConstraints.RELATIVE;       //third row
-        add(addQueryButton, c);
+        // Create search button.
+        JButton searchButton = new JButton("Add New Search");
+        c.gridx = GridBagConstraints.RELATIVE; //aligned with button 2
+        c.gridwidth = 2; //2 columns wide
+        c.gridy = GridBagConstraints.RELATIVE; //third row
+        add(searchButton, c);
 
+        // Add border around search UI options.
         setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createTitledBorder("New Search"),
                         BorderFactory.createEmptyBorder(5,5,5,5)));
 
-        addQueryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!newQuery.getText().equals("")) {
-                    addQuery(newQuery.getText().toLowerCase());
-                    newQuery.setText("");
-                }
+        // Add functionality to search button.
+        searchButton.addActionListener(e -> {
+            if (!newQuery.getText().equals("")) {
+                addQuery(newQuery.getText().toLowerCase());
+                newQuery.setText("");
             }
         });
 
         // This makes the "Enter" key submit the query.
-        app.getRootPane().setDefaultButton(addQueryButton);
+        app.getRootPane().setDefaultButton(searchButton);
 
+        initColorListener();
+    }
+
+    private void addDivider() {
+        add(Box.createRigidArea(new Dimension(5, 5)));
+    }
+
+    private void labelLayout(GridBagConstraints c, int posY, JLabel l) {
+        c.gridwidth = GridBagConstraints.RELATIVE;
+        c.fill = GridBagConstraints.NONE;
+        c.gridy = posY;
+        c.gridx = 0;
+        add(l, c);
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 1;
+    }
+
+    // Open palette when button is clicked to set query color.
+    private void initColorListener() {
         colorSetter.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

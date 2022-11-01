@@ -43,51 +43,51 @@ public class Parser {
 
     public Filter parse() throws SyntaxError {
         Filter ans = expr();
-        if (scanner.peek() != null) {
+        if (scanner.nextToken() != null) {
             throw new SyntaxError("Extra stuff at end of input");
         }
         return ans;
     }
 
     private Filter expr() throws SyntaxError {
-        return orexpr();
+        return orExpr();
     }
 
-    private Filter orexpr() throws SyntaxError {
-        Filter sub = andexpr();
-        String token = scanner.peek();
+    private Filter orExpr() throws SyntaxError {
+        Filter sub = andExpr();
+        String token = scanner.nextToken();
         while (token != null && token.equals(OR)) {
-            scanner.advance();
-            Filter right = andexpr();
+            scanner.advanceAndNextToken();
+            Filter right = andExpr();
             // At this point we have two subexpressions ("sub" on the left and "right" on the right)
             // that are to be connected by "or"
             sub = new OrFilter(sub, right);
             // The new filter object should be assigned to the variable "sub"
-            token = scanner.peek();
+            token = scanner.nextToken();
         }
         return sub;
     }
 
-    private Filter andexpr() throws SyntaxError {
-        Filter sub = notexpr();
-        String token = scanner.peek();
+    private Filter andExpr() throws SyntaxError {
+        Filter sub = notExpr();
+        String token = scanner.nextToken();
         while (token != null && token.equals(AND)) {
-            scanner.advance();
-            Filter right = notexpr();
+            scanner.advanceAndNextToken();
+            Filter right = notExpr();
             // At this point we have two subexpressions ("sub" on the left and "right" on the right)
             // that are to be connected by "and"
             sub = new AndFilter(sub, right);
             // The new filter object should be assigned to the variable "sub"
-            token = scanner.peek();
+            token = scanner.nextToken();
         }
         return sub;
     }
 
-    private Filter notexpr() throws SyntaxError {
-        String token = scanner.peek();
+    private Filter notExpr() throws SyntaxError {
+        String token = scanner.nextToken();
         if (token.equals(NOT)) {
-            scanner.advance();
-            Filter sub = notexpr();
+            scanner.advanceAndNextToken();
+            Filter sub = notExpr();
             return new NotFilter(sub);
         } else {
             Filter sub = prim();
@@ -96,18 +96,18 @@ public class Parser {
     }
 
     private Filter prim() throws SyntaxError {
-        String token = scanner.peek();
+        String token = scanner.nextToken();
         if (token.equals(LPAREN)) {
-            scanner.advance();
+            scanner.advanceAndNextToken();
             Filter sub = expr();
-            if (!scanner.peek().equals(RPAREN)) {
+            if (!scanner.nextToken().equals(RPAREN)) {
                 throw new SyntaxError("Expected ')'");
             }
-            scanner.advance();
+            scanner.advanceAndNextToken();
             return sub;
         } else {
             Filter sub = new BasicFilter(token);
-            scanner.advance();
+            scanner.advanceAndNextToken();
             return sub;
         }
     }
