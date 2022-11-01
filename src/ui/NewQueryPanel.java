@@ -30,30 +30,16 @@ public class NewQueryPanel extends JPanel {
 
         queryLabel.setLabelFor(newQuery);
         GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.RELATIVE;
-        c.fill = GridBagConstraints.NONE;
-        c.gridy = 0;
-        c.gridx = 0;
-        add(queryLabel, c);
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.BOTH;
+
+        labelLayout(c, 0, queryLabel);
         newQuery.setMaximumSize(new Dimension(200, 20));
-        c.gridx = 1;
         add(newQuery, c);
 
         add(Box.createRigidArea(new Dimension(5, 5)));
 
         JLabel colorLabel = new JLabel("Select Color: ");
         colorSetter.setBackground(getRandomColor());
-
-        c.gridwidth = GridBagConstraints.RELATIVE;
-        c.fill = GridBagConstraints.NONE;
-        c.gridy = 1;
-        c.gridx = 0;
-        add(colorLabel, c);
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.fill = GridBagConstraints.BOTH;
-        c.gridx = 1;
+        labelLayout(c, 1, colorLabel);
         colorSetter.setMaximumSize(new Dimension(200, 20));
         add(colorSetter, c);
 
@@ -84,6 +70,17 @@ public class NewQueryPanel extends JPanel {
         app.getRootPane().setDefaultButton(addQueryButton);
 
         initColorListener();
+    }
+
+    private void labelLayout(GridBagConstraints c, int posY, JLabel l) {
+        c.gridwidth = GridBagConstraints.RELATIVE;
+        c.fill = GridBagConstraints.NONE;
+        c.gridy = posY;
+        c.gridx = 0;
+        add(l, c);
+        c.gridwidth = GridBagConstraints.REMAINDER;
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 1;
     }
 
     // Open palette when button is clicked to set query color.
