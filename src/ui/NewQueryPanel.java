@@ -47,10 +47,11 @@ public class NewQueryPanel extends JPanel {
 
         add(Box.createRigidArea(new Dimension(5, 5)));
 
+        // Create search button.
         JButton addQueryButton = new JButton("Add New Search");
-        c.gridx = GridBagConstraints.RELATIVE;       //aligned with button 2
-        c.gridwidth = 2;   //2 columns wide
-        c.gridy = GridBagConstraints.RELATIVE;       //third row
+        c.gridx = GridBagConstraints.RELATIVE; //aligned with button 2
+        c.gridwidth = 2; //2 columns wide
+        c.gridy = GridBagConstraints.RELATIVE; //third row
         add(addQueryButton, c);
 
         setBorder(
