@@ -59,13 +59,10 @@ public class NewQueryPanel extends JPanel {
                         BorderFactory.createTitledBorder("New Search"),
                         BorderFactory.createEmptyBorder(5,5,5,5)));
 
-        addQueryButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!newQuery.getText().equals("")) {
-                    addQuery(newQuery.getText().toLowerCase());
-                    newQuery.setText("");
-                }
+        addQueryButton.addActionListener(e -> {
+            if (!newQuery.getText().equals("")) {
+                addQuery(newQuery.getText().toLowerCase());
+                newQuery.setText("");
             }
         });
 
