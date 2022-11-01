@@ -48,11 +48,11 @@ public class NewQueryPanel extends JPanel {
         addDivider();
 
         // Create search button.
-        JButton addQueryButton = new JButton("Add New Search");
+        JButton searchButton = new JButton("Add New Search");
         c.gridx = GridBagConstraints.RELATIVE; //aligned with button 2
         c.gridwidth = 2; //2 columns wide
         c.gridy = GridBagConstraints.RELATIVE; //third row
-        add(addQueryButton, c);
+        add(searchButton, c);
 
         // Add border around search UI options.
         setBorder(
@@ -61,7 +61,7 @@ public class NewQueryPanel extends JPanel {
                         BorderFactory.createEmptyBorder(5,5,5,5)));
 
         // Add functionality to search button.
-        addQueryButton.addActionListener(e -> {
+        searchButton.addActionListener(e -> {
             if (!newQuery.getText().equals("")) {
                 addQuery(newQuery.getText().toLowerCase());
                 newQuery.setText("");
@@ -69,7 +69,7 @@ public class NewQueryPanel extends JPanel {
         });
 
         // This makes the "Enter" key submit the query.
-        app.getRootPane().setDefaultButton(addQueryButton);
+        app.getRootPane().setDefaultButton(searchButton);
 
         initColorListener();
     }
