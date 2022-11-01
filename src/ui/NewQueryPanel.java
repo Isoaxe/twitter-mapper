@@ -15,7 +15,6 @@ import java.util.Random;
  */
 public class NewQueryPanel extends JPanel {
     private final JTextField newQuery = new JTextField(10);
-    private final JLabel queryLabel = new JLabel("Enter Search: ");
     private final JPanel colorSetter;
     private final Application app;
     private Random random;
@@ -28,15 +27,18 @@ public class NewQueryPanel extends JPanel {
 
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.Y_AXIS));
 
-        queryLabel.setLabelFor(newQuery);
         GridBagConstraints c = new GridBagConstraints();
 
+        // Create search label and field.
+        JLabel queryLabel = new JLabel("Enter Search: ");
+        queryLabel.setLabelFor(newQuery);
         labelLayout(c, 0, queryLabel);
         newQuery.setMaximumSize(new Dimension(200, 20));
         add(newQuery, c);
 
         add(Box.createRigidArea(new Dimension(5, 5)));
 
+        // Create color label and field.
         JLabel colorLabel = new JLabel("Select Color: ");
         colorSetter.setBackground(getRandomColor());
         labelLayout(c, 1, colorLabel);
