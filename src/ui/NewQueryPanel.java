@@ -17,7 +17,7 @@ public class NewQueryPanel extends JPanel {
     private final JTextField newQuery = new JTextField(10);
     private final JPanel colorSetter;
     private final Application app;
-    private Random random;
+    private final Random random;
 
     public NewQueryPanel(Application app) {
         this.app = app;
@@ -54,11 +54,13 @@ public class NewQueryPanel extends JPanel {
         c.gridy = GridBagConstraints.RELATIVE; //third row
         add(addQueryButton, c);
 
+        // Add border around search UI options.
         setBorder(
                 BorderFactory.createCompoundBorder(
                         BorderFactory.createTitledBorder("New Search"),
                         BorderFactory.createEmptyBorder(5,5,5,5)));
 
+        // Add functionality to search button.
         addQueryButton.addActionListener(e -> {
             if (!newQuery.getText().equals("")) {
                 addQuery(newQuery.getText().toLowerCase());
