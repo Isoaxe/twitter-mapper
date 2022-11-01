@@ -36,7 +36,7 @@ public class NewQueryPanel extends JPanel {
         newQuery.setMaximumSize(new Dimension(200, 20));
         add(newQuery, c);
 
-        add(Box.createRigidArea(new Dimension(5, 5)));
+        addDivider();
 
         // Create color label and field.
         JLabel colorLabel = new JLabel("Select Color: ");
@@ -45,7 +45,7 @@ public class NewQueryPanel extends JPanel {
         colorSetter.setMaximumSize(new Dimension(200, 20));
         add(colorSetter, c);
 
-        add(Box.createRigidArea(new Dimension(5, 5)));
+        addDivider();
 
         // Create search button.
         JButton addQueryButton = new JButton("Add New Search");
@@ -73,6 +73,10 @@ public class NewQueryPanel extends JPanel {
         app.getRootPane().setDefaultButton(addQueryButton);
 
         initColorListener();
+    }
+
+    private void addDivider() {
+        add(Box.createRigidArea(new Dimension(5, 5)));
     }
 
     private void labelLayout(GridBagConstraints c, int posY, JLabel l) {
